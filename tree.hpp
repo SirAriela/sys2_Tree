@@ -1,5 +1,5 @@
-//arielag1998@gmail.com
-//206862666
+// arielag1998@gmail.com
+// 206862666
 
 #ifndef TREE_HPP
 #define TREE_HPP
@@ -16,18 +16,27 @@ private:
     Node<T> *root;
 
 public:
-    Tree();
-    ~Tree();
+    Tree() : root(nullptr) {}
+    ~Tree() = default;
 
-    void add_root(Node<T> &node);
-    void add_sub_node(Node<T> &parent, Node<T> &child);
+    void add_root(Node<T> *node)
+    {
+        this->root = node;
+    }
+
+    void add_sub_node(Node<T> &parent, Node<T> &child)
+    {
+        if (parent.children.size() < k)
+        {
+            parent.children.push_back(&child);
+        }
+        else
+        {
+            throw "cant add more childrens";
+        }
+    }
 
     Node<T> *getRoot() const { return root; }
-
-    // Functions to draw the tree
-    void draw(sf::RenderWindow &window, Node<T, k> *node, float x, float y, float xOffset, float yOffset) const;
-    void draw(sf::RenderWindow &window) const;
-
 
     // preorder
     iterator begin_pre_order();
@@ -49,12 +58,14 @@ public:
     iterator begin_dfs_scan();
     iterator end_dfs_scan();
 
+    iterator heap;
+
     void print(std::ostream &os) const;
 
     friend std::ostream &operator<<(std::ostream &os, const Tree &tree)
     {
-        tree.print(os);
-        return os;
+        // tree.print(os);
+        // return os;
     }
 };
 
