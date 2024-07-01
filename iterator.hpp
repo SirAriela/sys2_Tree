@@ -12,7 +12,6 @@ class iterator
 {
 private:
     Node<T> *m_pointer;
-    std::stack<Node<T> *> m_stack;
     std::queue<Node<T> *> m_queue;
 
 public:
@@ -20,26 +19,30 @@ public:
     {
         if (ptr)
         {
-            m_stack.push(ptr);
             m_queue.push(ptr);
         }
     }
 
     bool operator!=(const iterator &other) const { return m_pointer != other.m_pointer; }
-    T &operator*() { return m_pointer->data; }
+    T &operator*() const { return m_pointer->data; }
 
     // Preorder ++
-    iterator &operator++();
+    iterator &operator++(){
+        Node<T> *current = m_queue.front();
+        m_queue.pop();
+        for (auto child : current->children)
+        {
+            m_queue.push(child);
+        }
+        return *this;
+    }
 
-    // Postorder ++
-    iterator &operator++(int);
+    // Begin and end functions for iterators
+    iterator begin() {
+        return iterator(root);
+    }
 
-    // Inorder iterator
-    iterator &inorder_next();
-
-    // BFS
-    iterator &bfs_next();
-
-    // DFS
-    iterator &dfs_next();
+    iterator end() {
+        return iterator(nullptr);
+    }
 };
