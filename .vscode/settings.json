@@ -50,6 +50,28 @@
         "list": "cpp",
         "format": "cpp",
         "span": "cpp",
-        "queue": "cpp"
-    }
+        "queue": "cpp",
+        "filesystem": "cpp",
+        "fstream": "cpp",
+        "codecvt": "cpp",
+        "condition_variable": "cpp",
+        "csignal": "cpp",
+        "cstring": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "ratio": "cpp",
+        "iomanip": "cpp",
+        "mutex": "cpp",
+        "semaphore": "cpp",
+        "sstream": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/ariela/Desktop/git/sys2_Tree",
+            "binaryPath": "/home/ariela/Desktop/git/sys2_Tree/demo",
+            "binaryArgs": []
+        }
+    ]
 }

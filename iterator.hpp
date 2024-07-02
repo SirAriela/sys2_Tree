@@ -186,3 +186,80 @@ public:
         return *this;
     }
 };
+
+template <typename T>
+class iterator_dfs_scan
+{
+private:
+    Node<T> *m_pointer;
+    std::stack<Node<T> *> m_stack;
+
+public:
+    iterator_dfs_scan(Node<T> *ptr = nullptr) : m_pointer(ptr)
+    {
+        if (ptr)
+        {
+            m_stack.push(ptr);
+        }
+    }
+
+    bool operator!=(const iterator_dfs_scan &other) const
+    {
+        // Properly compare against another iterator
+        if (other.m_stack.empty() && m_stack.empty())
+        {
+            return false;
+        }
+        if (!m_stack.empty() && other.m_stack.empty())
+        {
+            return true;
+        }
+        return m_stack.top() != other.m_stack.top();
+    }
+
+    T &operator*() const
+    {
+        if (!m_stack.empty())
+        {
+            return m_stack.top()->data;
+        }
+        throw std::out_of_range("Iterator out of range");
+    }
+
+    iterator_dfs_scan &operator++()
+    {
+        if (!m_stack.empty())
+        {
+            Node<T> *current = m_stack.top();
+            m_stack.pop();
+            for (auto it = current->children.rbegin(); it != current->children.rend(); ++it)
+            {
+                m_stack.push(*it);
+            }
+        }
+        return *this;
+    }
+
+    bool operator==(const iterator_dfs_scan &other) const
+    {
+        return !(*this != other);
+    }
+};
+
+
+template <typename T>
+class iterator_heap {
+private:
+    typename std::vector<T>::iterator m_iterator;
+
+public:
+    iterator_heap(typename std::vector<T>::iterator it) : m_iterator(it) {}
+
+    bool operator!=(const iterator_heap &other) const { return m_iterator != other.m_iterator; }
+    T &operator*() const { return *m_iterator; }
+    iterator_heap &operator++() {
+        ++m_iterator;
+        return *this;
+    }
+};
+

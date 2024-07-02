@@ -1,4 +1,6 @@
 
+//arielag1998@gmail.com
+//206862666
 
 #include <SFML/Graphics.hpp>
 #include "tree.hpp"
