@@ -24,9 +24,12 @@ private:
     {
         if (node == nullptr)
             return;
+        // Traverse left
         if (node->children.size() > 0 && node->children[0] != nullptr)
             inorder_traversal(node->children[0], nodes);
+        // Visit node
         nodes.push_back(node->data);
+        // Traverse right
         if (node->children.size() > 1 && node->children[1] != nullptr)
             inorder_traversal(node->children[1], nodes);
     }

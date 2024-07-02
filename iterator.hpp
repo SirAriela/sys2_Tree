@@ -27,6 +27,7 @@ public:
     // Preorder ++
     iterator_pre_Order &operator++()
     {
+        //add all children to the queue
         Node<T> *current = m_queue.front();
         m_queue.pop();
         for (auto child : current->children)
@@ -76,9 +77,11 @@ private:
     {
         while (!m_stack.empty())
         {
+            // If the stack is not empty, get the top element
             Node<T> *current = m_stack.top();
             if (!current->children.empty() && m_last_visited != current->children.back())
             {
+                // If the current node has children and the last visited node is not the last child
                 for (auto it = current->children.rbegin(); it != current->children.rend(); ++it)
                 {
                     m_stack.push(*it);
@@ -86,6 +89,7 @@ private:
             }
             else
             {
+                // If the current node has no children or the last visited node is the last child
                 m_stack.pop();
                 m_last_visited = current;
                 m_pointer = current;
@@ -109,6 +113,7 @@ public:
         while (node)
         {
             m_stack.push(node);
+            // Get the leftmost child
             if (!node->children.empty())
             {
                 node = node->children[0];
@@ -142,14 +147,18 @@ public:
 
     iterator_in_Order &operator++()
     {
+        // If the stack is not empty, get the top element
         if (!m_stack.empty())
         {
+            // Pop the top element
             Node<T> *node = m_stack.top();
             m_stack.pop();
             if (node->children.size() > 1)
             {
+                // If the node has a right child, push the leftmost node of the right child
                 push_leftmost(node->children[1]);
             }
+            // Update the pointer
             m_pointer = m_stack.empty() ? nullptr : m_stack.top();
         }
         return *this;
