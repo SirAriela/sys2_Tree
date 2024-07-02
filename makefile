@@ -8,12 +8,14 @@ CXXFLAGS = -std=c++11 -Werror -Wsign-conversion -pedantic
 VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=99 
 LDLIBS = -pthread -lsfml-graphics -lsfml-window -lsfml-system
 
-SOURCES = Demo.cpp 
+SOURCES = Demo.cpp mainwindow.cpp
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
 
-demo: Demo.o 
+demo: Demo.o
 	$(CXX) $(CXXFLAGS) $^ -o demo $(LDLIBS)
 
+mainwindow: mainwindow.o
+	$(CXX) $(CXXFLAGS) $^ -o mainwindow $(LDLIBS)
 tidy:
 	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
 
@@ -25,6 +27,6 @@ valgrind: demo
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o my_test demo main
+	rm -f *.o my_test demo mainwindow
 
 .PHONY: all tidy valgrind clean
