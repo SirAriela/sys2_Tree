@@ -1,8 +1,9 @@
+//arielag1998@gmail.com
+//206862666
+
 // node.hpp
 #ifndef NODE_HPP
 #define NODE_HPP
-
-#pragma once
 
 #include <vector>
 
